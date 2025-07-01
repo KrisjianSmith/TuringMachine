@@ -1,5 +1,4 @@
 #include "TuringMachine/TuringMachine.h"
-#include "Assembler/Assembler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +9,6 @@
 #define OUTPUT 'O'
 #define ONLINE_SYNTAX 'o'
 #define CLEAR 'c'
-#define ASSEMBLE 'a'
 
 // Prints the given turing machine in the online turing machine simulator
 // syntax: https://turingmachinesimulator.com/
@@ -46,9 +44,9 @@ void toOnlineSimulatorSyntax(FILE* file, TuringMachine* tm) {
 // Takes the command line arguments and interprets them. Stores the options in the corresponding variables
 // and stores the index of the input and output files in the locations pointed to by inputFile and outputFile
 // Returns true if the inputs were valid, or returns false and prints an error message if invalid.
-_Bool interpretCommandLineArgs(int argc, char** argv, _Bool* verbose, _Bool* step, _Bool* online, _Bool* assemble, _Bool* clear, int* input, int* output) {
+_Bool interpretCommandLineArgs(int argc, char** argv, _Bool* verbose, _Bool* step, _Bool* online, _Bool* clear, int* input, int* output) {
 	
-	const char ERROR_MSG[] = "Usage: TuringMachine [-vscao] -I input_file [tape_input] [-O output_file]";
+	const char ERROR_MSG[] = "Usage: TuringMachine [-vsco] -I input_file [tape_input] [-O output_file]";
 
 	// Search for switches	
 	for (int i = 1; i < argc; i++) {
@@ -152,16 +150,6 @@ _Bool interpretCommandLineArgs(int argc, char** argv, _Bool* verbose, _Bool* ste
 					}
 					break;
 
-					case ASSEMBLE:
-					if (*assemble) {
-						printf("%s\n", ERROR_MSG);
-						printf("Error processing input: assemble switch is set twice\n");
-						return 0;
-					}
-					else {
-						*assemble = 1;
-					}
-					break;
 
 					// Anything else is an invalid switch
 					default:
@@ -180,16 +168,6 @@ _Bool interpretCommandLineArgs(int argc, char** argv, _Bool* verbose, _Bool* ste
 		return 0;
 	}
 	
-	if (*assemble && *output == -1) {
-		printf("%s\n", ERROR_MSG);
-		printf("Error processing input: no output file provided, but assemble switch is set to true\n");
-		return 0;
-	}
-	if (*assemble && (*step || *verbose || *online || *clear)) {
-		printf("%s\n", ERROR_MSG);
-		printf("Error processing input: if assemble switch is set, it must be the only switch set\n");
-		return 0;
-	}
 
 	// If online syntax and verbose or step are set, the input is invalid
 	if (*online && (*step || *verbose)) {
@@ -233,19 +211,13 @@ int main(int argc, char** argv) {
 	
 	_Bool verbose = 0;
 	_Bool step = 0;
-	_Bool assemble = 0;
 	_Bool online = 0;
 	_Bool clear = 0;
 	int input = -1;
 	int output = -1;
 	
 	// Interpret command line input
-	if (!interpretCommandLineArgs(argc, argv, &verbose, &step, &online, &assemble, &clear, &input, &output)) {
-		return 0;
-	}
-
-	if (assemble) {
-		assembleTuringMachine(argv[input], argv[output]);
+	if (!interpretCommandLineArgs(argc, argv, &verbose, &step, &online, &clear, &input, &output)) {
 		return 0;
 	}
 

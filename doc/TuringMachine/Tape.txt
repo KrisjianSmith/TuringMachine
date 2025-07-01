@@ -1,0 +1,61 @@
+The Tape is the "memory" of the Turing Machine. It is unbounded
+in either direction, and every spot on the tape starts out blank.
+A "blank" symbol is represented with a null terminator.
+
+A Tape is implemented with a doubly-linked list. It stores the
+amount of nodes in the list so that the turing machine can be
+terminated if it gets caught in an infinite loop
+
+Functions:
+
+makeTape(char* input)
+	Creates a new Tape. The inputs given by the
+	input array will be placed on the tape, with the tape
+	head pointing at index 0.
+
+	input - an array of characters to load onto the tape
+
+	returns - a pointer to the Tape that was created
+
+freeTape(Tape* tape)
+	Frees the memory reserved for the given Tape and everything stored in the tape
+
+	tape - the Tape to free
+
+next(Tape* tape)
+	Moves the tape head down one spot and returns the value stored there.
+	
+	tape - the tape to perform the operation on
+
+	returns - the symbol on the tape at the next spot
+
+previous(Tape* tape)
+	Move the tape head up one spot and returns the value stored there.
+
+	tape - the tape to perform the operation on
+
+	returns - the symbol on the tape at the previous spot
+
+get(Tape* tape)
+	Returns the symbol at the current spot on the tape
+
+	tape - the tape to perform the operation on
+
+	returns - the symbol at the current spot on the tape
+
+write(Tape* tape, char c)
+	Writes the given char onto the current position on the tape.
+	Overwrites whatever was in that position on the tape before.
+
+	c - the character to write to this spot on the tape
+
+tapeToString(Tape* tape, char* buffer, int bufferSize)
+	Fills the given buffer with a string that represents the current Tape.
+	If the buffer is not large enough, then the buffer will contain the first
+	bufferSize symbols, starting from the very left-most symbol on the tape.
+	It is recommended to use a buffer size that is two more than twice the tape size.
+	(2 * tape->size + 2)
+	
+	tape - the tape to represent in the buffer
+	buffer - an empty buffer to save the String to
+	bufferSize - the size of the buffer

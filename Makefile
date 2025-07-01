@@ -5,8 +5,7 @@ OBJECTS := bin/TuringMachine/TuringMachine.o \
 		   bin/Main/main.o \
 		   bin/TuringMachine/RuleTree.o \
 		   bin/TuringMachine/Tape.o \
-		   bin/Debug/Debug.o \
-		   bin/Assembler/Assembler.o
+		   bin/Debug/Debug.o
 
 TuringMachine: $(OBJECTS)
 	$(CC) $^ $(FLAGS) -o $@
@@ -32,9 +31,7 @@ bin/Debug/Debug.o: src/Debug/Debug.c src/Debug/Debug.h
 	$(CC) -c src/Debug/Debug.c $(FLAGS) -o $@
 
 bin/Assembler/Assembler.o: src/TuringMachine/TuringMachine.h \
-						   src/TuringMachine/RuleTree.h \
-						   src/Assembler/Assembler.h \
-						   src/Assembler/Assembler.c
+						   src/TuringMachine/RuleTree.h
 	$(CC) -c src/Assembler/Assembler.c $(FLAGS) -o $@
 
 clean:
@@ -43,5 +40,4 @@ clean:
 	mkdir bin/TuringMachine
 	mkdir bin/Main
 	mkdir bin/Debug
-	mkdir bin/Assembler
 	rm TuringMachine
