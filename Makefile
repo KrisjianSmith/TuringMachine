@@ -40,4 +40,4 @@ clean:
 	mkdir bin/TuringMachine
 	mkdir bin/Main
 	mkdir bin/Debug
-	rm TuringMachine
+	rm -f TuringMachine
