@@ -28,7 +28,7 @@ that can be used:
 - s - Step: The program will pause after each step
 - c - Clear: The output terminal will be cleared after every step
 - o - Output: Rather than run the turing machine, the program will cross-compile my turing machine syntax
-      into the syntax used by (This)[https://turingmachinesimulator.com/] online Turing machine simulator.
+      into the syntax used by [This](https://turingmachinesimulator.com/) online Turing machine simulator.
       This was the turing machine simulator used by the professor for my automata class.
 
 
@@ -42,8 +42,8 @@ This program contains some example turing machine files under the `files` direct
 of each file:
 
 - 0n1n.txt - Accepts any string in the form 0^n 1^n on the input tape
-- 0n1nVeryComplicated.txt - Accepts strings in the form 0^n 1^n by creating a turing machine on the current
-  turing machine and simulating that turing machine using the first turing machine.
+- 0n1nVeryComplicated.txt - Accepts strings in the form 0^n 1^n by creating a universal turing machine on the current
+  turing machine and simulating the universal turing machine.
 - binaryAdd.txt - Adds two binary numbers separated by a + (ie. 0011+0101)
 - binaryMultiply.txt - The same as above, but with multiplication. Numbers must be separated by an x (ie 10x10)
 - efficientMultiply.txt - The same as above, but using a more efficient multiplication algorithm
