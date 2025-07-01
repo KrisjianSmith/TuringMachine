@@ -1,0 +1,59 @@
+Start:
+	0 0 < makeA
+	1 1 < makeA
+makeA:
+	_ A > makeBC
+makeBC:
+	0 0 > makeBC
+	1 1 > makeBC
+	+ B > makeBC
+	_ C < startAddition
+
+startAddition:
+	0 X < markIgnore
+	1 X < addBit
+	B B < removeMarkers
+markIgnore:
+	0 0 < markIgnore
+	1 1 < markIgnore
+	B B < markIgnore2
+markIgnore2:
+	a a < markIgnore2
+	b b < markIgnore2
+	0 a > nextBit
+	1 b > nextBit
+nextBit:
+	a a > nextBit
+	b b > nextBit
+	B B > nextBit2
+nextBit2:
+	0 0 > nextBit2
+	1 1 > nextBit2
+	X X < startAddition
+addBit:
+	0 0 < addBit
+	1 1 < addBit
+	B B < addBit2
+addBit2:
+	a a < addBit2
+	b b < addBit2
+	0 b > nextBit
+	1 a < increment
+increment:
+	1 0 < increment
+	0 1 > findB
+	A 1 < expandA
+expandA:
+	_ A > findB
+findB:
+	0 0 > findB
+	1 1 > findB
+	a a > nextBit
+	b b > nextBit
+	B B > nextBit
+removeMarkers:
+	a 0 < removeMarkers
+	b 1 < removeMarkers
+	1 1 < removeMarkers
+	A A > accept
+accept: ACCEPT

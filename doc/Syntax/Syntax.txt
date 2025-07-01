@@ -1,0 +1,7 @@
+This document specifies the syntax used by the program
+
+Name: [ACCEPT]
+	(read symbol) (write symbol) (move direction) (stateToMoveTo)
+
+Comments can be written as well. Anything after two slashes (//) on a line is
+ignored as a comment.

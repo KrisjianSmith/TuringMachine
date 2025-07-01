@@ -1,0 +1,789 @@
+
+// Place B and H at beginning of input
+// and E at the end
+Start:
+	0 0 < putH
+	1 1 < putH
+	_ b < putH // If the tape is empty, put a blank symbol
+putH:
+	_ H < putB
+putB:
+	_ B > putE
+putE:
+	B B > putE
+	H H > putE
+	0 0 > putE
+	1 1 > putE
+	b b > putE
+	_ E > PlaceInput1
+
+// Place the inner TM on the tape
+PlaceInput1:
+	_ S > PlaceInput2
+PlaceInput2:
+	_ 0 > PlaceInput3
+PlaceInput3:
+	_ 0 > PlaceInput4
+PlaceInput4:
+	_ 0 > PlaceInput5
+PlaceInput5:
+	_ R > PlaceInput6
+PlaceInput6:
+	_ 0 > PlaceInput7
+PlaceInput7:
+	_ b > PlaceInput8
+PlaceInput8:
+	_ > > PlaceInput9
+PlaceInput9:
+	_ 0 > PlaceInput10
+PlaceInput10:
+	_ 0 > PlaceInput11
+PlaceInput11:
+	_ 1 > PlaceInput12
+PlaceInput12:
+	_ R > PlaceInput13
+PlaceInput13:
+	_ b > PlaceInput14
+PlaceInput14:
+	_ b > PlaceInput15
+PlaceInput15:
+	_ > > PlaceInput16
+PlaceInput16:
+	_ 1 > PlaceInput17
+PlaceInput17:
+	_ 0 > PlaceInput18
+PlaceInput18:
+	_ 0 > PlaceInput19
+PlaceInput19:
+	_ S > PlaceInput20
+PlaceInput20:
+	_ 0 > PlaceInput21
+PlaceInput21:
+	_ 0 > PlaceInput22
+PlaceInput22:
+	_ 1 > PlaceInput23
+PlaceInput23:
+	_ R > PlaceInput24
+PlaceInput24:
+	_ 0 > PlaceInput25
+PlaceInput25:
+	_ 0 > PlaceInput26
+PlaceInput26:
+	_ > > PlaceInput27
+PlaceInput27:
+	_ 0 > PlaceInput28
+PlaceInput28:
+	_ 0 > PlaceInput29
+PlaceInput29:
+	_ 1 > PlaceInput30
+PlaceInput30:
+	_ R > PlaceInput31
+PlaceInput31:
+	_ 1 > PlaceInput32
+PlaceInput32:
+	_ 1 > PlaceInput33
+PlaceInput33:
+	_ > > PlaceInput34
+PlaceInput34:
+	_ 0 > PlaceInput35
+PlaceInput35:
+	_ 0 > PlaceInput36
+PlaceInput36:
+	_ 1 > PlaceInput37
+PlaceInput37:
+	_ R > PlaceInput38
+PlaceInput38:
+	_ b > PlaceInput39
+PlaceInput39:
+	_ b > PlaceInput40
+PlaceInput40:
+	_ < > PlaceInput41
+PlaceInput41:
+	_ 0 > PlaceInput42
+PlaceInput42:
+	_ 1 > PlaceInput43
+PlaceInput43:
+	_ 0 > PlaceInput44
+PlaceInput44:
+	_ S > PlaceInput45
+PlaceInput45:
+	_ 0 > PlaceInput46
+PlaceInput46:
+	_ 1 > PlaceInput47
+PlaceInput47:
+	_ 0 > PlaceInput48
+PlaceInput48:
+	_ R > PlaceInput49
+PlaceInput49:
+	_ 1 > PlaceInput50
+PlaceInput50:
+	_ b > PlaceInput51
+PlaceInput51:
+	_ < > PlaceInput52
+PlaceInput52:
+	_ 0 > PlaceInput53
+PlaceInput53:
+	_ 1 > PlaceInput54
+PlaceInput54:
+	_ 1 > PlaceInput55
+PlaceInput55:
+	_ S > PlaceInput56
+PlaceInput56:
+	_ 0 > PlaceInput57
+PlaceInput57:
+	_ 1 > PlaceInput58
+PlaceInput58:
+	_ 1 > PlaceInput59
+PlaceInput59:
+	_ R > PlaceInput60
+PlaceInput60:
+	_ 0 > PlaceInput61
+PlaceInput61:
+	_ 0 > PlaceInput62
+PlaceInput62:
+	_ < > PlaceInput63
+PlaceInput63:
+	_ 0 > PlaceInput64
+PlaceInput64:
+	_ 1 > PlaceInput65
+PlaceInput65:
+	_ 1 > PlaceInput66
+PlaceInput66:
+	_ R > PlaceInput67
+PlaceInput67:
+	_ 1 > PlaceInput68
+PlaceInput68:
+	_ 1 > PlaceInput69
+PlaceInput69:
+	_ < > PlaceInput70
+PlaceInput70:
+	_ 0 > PlaceInput71
+PlaceInput71:
+	_ 1 > PlaceInput72
+PlaceInput72:
+	_ 1 > PlaceInput73
+PlaceInput73:
+	_ R > PlaceInput74
+PlaceInput74:
+	_ b > PlaceInput75
+PlaceInput75:
+	_ b > PlaceInput76
+PlaceInput76:
+	_ > > PlaceInput77
+PlaceInput77:
+	_ 0 > PlaceInput78
+PlaceInput78:
+	_ 0 > PlaceInput79
+PlaceInput79:
+	_ 0 > PlaceInput80
+PlaceInput80:
+	_ S > PlaceInput81
+PlaceInput81:
+	_ A > PlaceInput82
+PlaceInput82:
+	_ 1 > PlaceInput83
+PlaceInput83:
+	_ 0 > PlaceInput84
+PlaceInput84:
+	_ 0 < AfterInputToBeginning
+
+
+// Go back to the beginning of the tape
+AfterInputToBeginning:
+	0 0 < AfterInputToBeginning
+	1 1 < AfterInputToBeginning
+	b b < AfterInputToBeginning
+	S S < AfterInputToBeginning
+	R R < AfterInputToBeginning
+	A A < AfterInputToBeginning
+	< < < AfterInputToBeginning
+	> > < AfterInputToBeginning
+	E E < AfterInputToBeginning
+	H H < AfterInputToBeginning
+	B B < AfterInputToBeginning
+	_ _ > setFirstState
+
+// Start the TM
+
+// Simulates a Turing Machine using a Turing Machine
+
+// Set the first state as the current state
+setFirstState:
+	B B > setFirstState
+	H H > setFirstState
+	0 0 > setFirstState2
+	b b > setFirstStateBlank
+	1 1 > setFirstState2
+setFirstState2: // This state is for when there are no blanks in the input
+	B B > setFirstState2
+	H H > setFirstState2
+	0 0 > setFirstState2
+	1 1 > setFirstState2
+	E E > setFirstState2
+	S C < backToBeginning
+setFirstStateBlank: // This state is for when there is only one blank in the input
+	E E > setFirstStateBlank
+	S C < backToBeginning
+backToBeginning:
+	E E < backToBeginning
+	1 1 < backToBeginning
+	0 0 < backToBeginning
+	b b < backToBeginning
+	H H < backToBeginning
+	B B > findHead
+
+// Find the tape head
+findHead:
+	0 0 > findHead
+	1 1 > findHead
+	b b > findHead
+	H H > interpretSymbol
+	B B > findHead
+
+// Find the rule in the current state for the given symbol
+interpretSymbol:
+	0 0 > getRule0
+	1 1 > getRule1
+	b b > getRuleBlank
+
+// Find the current state
+getRule0:
+	0 0 > getRule0
+	1 1 > getRule0
+	b b > getRule0
+	S S > getRule0
+	A A > getRule0
+	R R > getRule0
+	E E > getRule0
+	C C > getRule02
+	> > > getRule0
+	< < > getRule0
+//Find the rule for 0 in the current state
+getRule02:
+	0 0 > getRule02
+	1 1 > getRule02
+	b b > getRule02
+	> > > getRule02
+	< < > getRule02
+	A A > getRule02
+	S S < isAcceptState
+	_ _ < isAcceptState
+	R R > isNextSymbol0
+isNextSymbol0:
+	0 0 < setAsRule
+	1 1 > getRule02
+	b b > getRule02
+
+// Get the rule for a 1
+getRule1:
+	0 0 > getRule1
+	1 1 > getRule1
+	b b > getRule1
+	S S > getRule1
+	A A > getRule1
+	R R > getRule1
+	C C > getRule12
+	E E > getRule1
+	> > > getRule1	
+	< < > getRule1
+//Find the rule for 1 in the current state
+getRule12:
+	0 0 > getRule12
+	1 1 > getRule12
+	b b > getRule12
+	> > > getRule12
+	< < > getRule12
+	A A > getRule12
+	R R > isNextSymbol1
+	S S < isAcceptState
+	_ _ < isAcceptState
+isNextSymbol1:
+	1 1 < setAsRule
+	0 0 > getRule12
+	b b > getRule12
+
+// Get the rule for a blank
+getRuleBlank:
+	0 0 > getRuleBlank
+	1 1 > getRuleBlank
+	b b > getRuleBlank
+	A A > getRuleBlank
+	S S > getRuleBlank
+	R R > getRuleBlank
+	E E > getRuleBlank
+	C C > getRuleBlank2
+	> > > getRuleBlank
+	< < > getRuleBlank
+//Find the rule for blank in the current state
+getRuleBlank2:
+	0 0 > getRuleBlank2
+	1 1 > getRuleBlank2
+	b b > getRuleBlank2
+	> > > getRuleBlank2
+	< < > getRuleBlank2
+	A A > getRuleBlank2
+	S S < isAcceptState
+	_ _ < isAcceptState
+	R R > isNextSymbolBlank
+isNextSymbolBlank:
+	b b < setAsRule
+	1 1 > getRuleBlank2
+	0 0 > getRuleBlank2
+
+// Set as the current rule, marked with a !
+setAsRule:
+	R ! > getWriteSymbol
+getWriteSymbol:
+	0 0 > getWriteSymbol2
+	1 1 > getWriteSymbol2
+	b b > getWriteSymbol2
+getWriteSymbol2:
+	0 0 < writeZero
+	1 1 < writeOne
+	b b < writeBlank
+
+// Find the tape head and write a 0
+writeZero:
+	0 0 < writeZero
+	1 1 < writeZero
+	< < < writeZero
+	> > < writeZero
+	S S < writeZero
+	A A < writeZero
+	R R < writeZero
+	! ! < writeZero
+	C C < writeZero
+	b b < writeZero
+	H H > writeZero2
+	E E < writeZero
+writeZero2:
+	0 0 > moveHead
+	1 0 > moveHead
+	b 0 > moveHead
+
+// Find the tape head and write a 1
+writeOne:
+	0 0 < writeOne
+	1 1 < writeOne
+	< < < writeOne
+	> > < writeOne
+	S S < writeOne
+	R R < writeOne
+	A A < writeOne
+	! ! < writeOne
+	C C < writeOne
+	b b < writeOne
+	H H > writeOne2
+	E E < writeOne
+writeOne2:
+	0 1 > moveHead
+	1 1 > moveHead
+	b 1 > moveHead
+
+// Find the tape head and write a blank
+writeBlank:
+	0 0 < writeBlank
+	1 1 < writeBlank
+	< < < writeBlank
+	> > < writeBlank
+	S S < writeBlank
+	A A < writeBlank
+	R R < writeBlank
+	! ! < writeBlank
+	C C < writeBlank
+	b b < writeBlank
+	H H > writeBlank2
+	E E < writeBlank
+writeBlank2:
+	0 b > moveHead
+	1 b > moveHead
+	b b > moveHead
+
+// Move the head in the correct direction
+moveHead:
+	0 0 > moveHead
+	1 1 > moveHead
+	b b > moveHead
+	E E > moveHead
+	S S > moveHead
+	A A > moveHead
+	C C > moveHead
+	B B > moveHead
+	H H > moveHead
+	R R > moveHead
+	> > > moveHead
+	< < > moveHead
+	! ! > moveHead2
+moveHead2:
+	1 1 > moveHead3
+	0 0 > moveHead3
+	b b > moveHead3
+moveHead3:
+	1 1 > moveHead4
+	0 0 > moveHead4
+	b b > moveHead4
+moveHead4:
+	> > < moveHeadRight
+	< < > moveHeadLeft
+
+// Finds the tape head and moves it one to the left
+moveHeadLeft:
+	0 0 < moveHeadLeft
+	1 1 < moveHeadLeft
+	b b < moveHeadLeft
+	E E < moveHeadLeft
+	S S < moveHeadLeft
+	A A < moveHeadLeft
+	R R < moveHeadLeft
+	C C < moveHeadLeft
+	> > < moveHeadLeft
+	< < < moveHeadLeft
+	! ! < moveHeadLeft
+	H H < moveHeadLeft2
+moveHeadLeft2:
+	0 H > copyZeroLeft
+	1 H > copyOneLeft
+	b H > copyBlankLeft
+	B H > copyBeginningLeft
+copyZeroLeft:
+	H 0 > setNextState
+copyOneLeft:
+	H 1 > setNextState
+copyBlankLeft:
+	H b > setNextState
+copyBeginningLeft:
+	H b < newBeginning
+newBeginning:
+	H H < newBeginning
+	_ B > setNextState
+
+// Finds the tape head and moves it one to the right
+moveHeadRight:
+	0 0 < moveHeadRight
+	1 1 < moveHeadRight
+	b b < moveHeadRight
+	E E < moveHeadRight
+	R R < moveHeadRight
+	S S < moveHeadRight
+	A A < moveHeadRight
+	C C < moveHeadRight
+	> > < moveHeadRight
+	< < < moveHeadRight
+	! ! < moveHeadRight
+	H H > moveHeadRight2
+moveHeadRight2:
+	0 H < copyZeroRight
+	1 H < copyOneRight
+	b H < copyBlankRight
+copyZeroRight:
+	H 0 > checkEnd
+copyOneRight:
+	H 1 > checkEnd
+copyBlankRight:
+	H b > checkEnd
+checkEnd:
+	H H > checkEnd
+	1 1 > setNextState
+	0 0 > setNextState
+	b b > setNextState
+	E E < shiftEverythingRight
+
+// Shift the entire tape contents to the right one
+shiftEverythingRight:
+	0 0 < shiftEverythingRight
+	1 1 < shiftEverythingRight
+	b b < shiftEverythingRight
+	H H < shiftEverythingRight
+	B B < startShift
+startShift:
+	_ B > startShift2
+startShift2:
+	B B > shiftLoop
+	0 0 > shiftLoop
+	1 1 > shiftLoop
+	b b > shiftLoop
+	H H > shiftLoop
+shiftLoop:
+	0 0 < shiftZero
+	1 1 < shiftOne
+	H H < shiftHead
+	b b < shiftBlank
+	E E < makeBlank
+shiftZero:
+	0 0 > startShift2
+	1 0 > startShift2
+	b 0 > startShift2
+	B 0 > startShift2
+	H 0 > startShift2
+shiftOne:
+	0 1 > startShift2
+	1 1 > startShift2
+	b 1 > startShift2
+	B 1 > startShift2
+	H 1 > startShift2
+shiftHead:
+	0 H > startShift2
+	1 H > startShift2
+	b H > startShift2
+	B H > startShift2
+	H H > startShift2
+shiftBlank:
+	0 b > startShift2
+	1 b > startShift2
+	b b > startShift2
+	B b > startShift2
+	H b > startShift2
+makeBlank:
+	H b > setNextState
+
+// Set the next symbol
+// First, find the exclamation mark
+setNextState:
+	B B > setNextState
+	0 0 > setNextState
+	1 1 > setNextState
+	b b > setNextState
+	H H > setNextState
+	E E > setNextState
+	S S > setNextState
+	A A > setNextState
+	R R > setNextState
+	C C > setNextState
+	> > > setNextState
+	< < > setNextState
+	! ! > setNextState2
+
+// Find the first symbol in the new state name
+setNextState2:
+	0 0 > setNextState2
+	1 1 > setNextState2
+	b b > setNextState2
+	> > > setNextState3
+	< < > setNextState3
+// Find the first marked symbol and go back one.
+// If all symbols are marked, remove all marked symbols
+// and start the search itself
+setNextState3:
+	0 0 > setNextState4
+	1 1 > setNextState4
+	a a < removeMarkersNextState
+	c c < removeMarkersNextState
+setNextState4:
+	0 0 > setNextState4
+	1 1 > setNextState4
+	_ _ < copyPreviousSymbol
+	S S < copyPreviousSymbol
+	R R < copyPreviousSymbol
+	a a < copyPreviousSymbol
+	c c < copyPreviousSymbol
+copyPreviousSymbol:
+	0 a < copyZeroToFront
+	1 c < copyOneToFront
+copyZeroToFront:
+	0 0 < copyZeroToFront
+	1 1 < copyZeroToFront
+	S S < copyZeroToFront
+	A A < copyZeroToFront
+	R R < copyZeroToFront
+	! ! < copyZeroToFront
+	b b < copyZeroToFront
+	c c < copyZeroToFront
+	C S < copyZeroToFront // Remove marker since it's unneeded at this point
+	E E < copyZeroToFront
+	B B < copyZeroToFront
+	< < < copyZeroToFront
+	H H < copyZeroToFront
+	> > < copyZeroToFront
+	_ 0 > setNextState
+copyOneToFront:
+	0 0 < copyOneToFront
+	1 1 < copyOneToFront
+	S S < copyOneToFront
+	A A < copyOneToFront
+	R R < copyOneToFront
+	c c < copyOneToFront
+	! ! < copyOneToFront
+	b b < copyOneToFront
+	C S < copyOneToFront // Remove marker since it's unneeded at this point
+	E E < copyOneToFront
+	B B < copyOneToFront
+	< < < copyOneToFront
+	> > < copyOneToFront
+	H H < copyOneToFront
+	_ 1 > setNextState
+
+// Remove markers
+removeMarkersNextState:
+	a 0 > removeMarkersNextState
+	c 1 > removeMarkersNextState
+	> > > removeMarkersNextState
+	< < > removeMarkersNextState
+	S S < findBeginningNextState
+	A A < findBeginningNextState
+	R R < findBeginningNextState
+	_ _ < findBeginningNextState
+
+// Find the beginning to start searching for the next state
+findBeginningNextState:
+	0 0 < findBeginningNextState
+	a a < findBeginningNextState
+	1 1 < findBeginningNextState
+	b b < findBeginningNextState
+	H H < findBeginningNextState
+	c c < findBeginningNextState
+	B B < findBeginningNextState
+	E E < findBeginningNextState
+	S S < findBeginningNextState
+	A A < findBeginningNextState
+	R R < findBeginningNextState
+	X X < findBeginningNextState
+	! R < findBeginningNextState // Remove marker since it's not needed any more
+	< < < findBeginningNextState
+	> > < findBeginningNextState
+	_ _ > SearchForNextState
+
+// Search for the first non-marked symbol
+SearchForNextState:
+	a a > SearchForNextState
+	c c > SearchForNextState
+	B B > MakeSureStateNameEnded
+	0 a > findZero
+	1 c > findOne
+
+// Find the first character with an S symbol and make sure that the
+// first unmarked symbol is a 1
+findZero:
+	0 0 > findZero
+	1 1 > findZero
+	b b > findZero
+	H H > findZero
+	B B > findZero
+	E E > findZero
+	R R > findZero
+	< < > findZero
+	> > > findZero
+	a a > findZero
+	c c > findZero
+	X X > findZero
+	S S > findZeroInState
+findZeroInState:
+	A A > findZeroInState
+	a a > findZeroInState
+	c c > findZeroInState
+	0 a < findBeginningNextState
+	1 1 < rejectState
+
+// This state wasn't correct, reject it and remove all markers,
+// then start the search again
+rejectState:
+	a 0 < rejectState
+	c 1 < rejectState
+	S X < rejectState2
+	A A < rejectState
+rejectState2:
+	0 0 < rejectState2
+	1 1 < rejectState2
+	b b < rejectState2
+	H H < rejectState2
+	X X < rejectState2
+	A A < rejectState2
+	R R < rejectState2
+	< < < rejectState2
+	> > < rejectState2
+	B B < rejectState3
+	E E < rejectState2
+rejectState3:
+	0 0 < rejectState3
+	1 1 < rejectState3
+	a 0 < rejectState3
+	c 1 < rejectState3
+	_ _ > findBeginningNextState
+
+
+// Find the first character with an S symbol and make sure that the
+// first unmarked symbol is a 1
+findOne:
+	0 0 > findOne
+	1 1 > findOne
+	b b > findOne
+	H H > findOne
+	B B > findOne
+	E E > findOne
+	R R > findOne
+	< < > findOne
+	> > > findOne
+	a a > findOne
+	c c > findOne
+	X X > findOne
+	S S > findOneInState
+findOneInState:
+	a a > findOneInState
+	A A > findOneInState
+	c c > findOneInState
+	1 c < findBeginningNextState
+	0 0 < rejectState
+
+// Make sure that the last symbol in this state
+// is marked. If so, this state is the next
+// state. If not, reject this state and restart the
+// search
+MakeSureStateNameEnded:
+	0 0 > MakeSureStateNameEnded
+	1 1 > MakeSureStateNameEnded
+	b b > MakeSureStateNameEnded
+	a a > MakeSureStateNameEnded
+	c c > MakeSureStateNameEnded
+	X X > MakeSureStateNameEnded
+	A A > MakeSureStateNameEnded
+	H H > MakeSureStateNameEnded
+	B B > MakeSureStateNameEnded
+	E E > MakeSureStateNameEnded
+	R R > MakeSureStateNameEnded
+	> > > MakeSureStateNameEnded
+	< < > MakeSureStateNameEnded
+	S S > MakeSureStateNameEnded2
+MakeSureStateNameEnded2:
+	A A > MakeSureStateNameEnded2
+	a a > MakeSureStateNameEnded2
+	c c > MakeSureStateNameEnded2
+	0 0 < rejectState
+	1 1 < rejectState
+	R R < cleanUpAllMarkers
+	_ _ < cleanUpAllMarkers
+
+// remove all markers
+cleanUpAllMarkers:
+	a 0 < cleanUpAllMarkers
+	c 1 < cleanUpAllMarkers
+	X S < cleanUpAllMarkers
+	A A < cleanUpAllMarkers
+	b b < cleanUpAllMarkers
+	H H < cleanUpAllMarkers
+	S C < cleanUpAllMarkers // Make sure that this state is set as the current state
+	B B < cleanUpAllMarkers
+	E E < cleanUpAllMarkers
+	R R < cleanUpAllMarkers
+	< < < cleanUpAllMarkers
+	> > < cleanUpAllMarkers
+	0 0 < cleanUpAllMarkers
+	1 1 < cleanUpAllMarkers
+	_ _ > removeFront
+removeFront:
+	0 _ > removeFront
+	1 _ > removeFront
+	B B > findHead
+
+// Checks if the current rule is an accept state,
+// which is signified by an A symbol immediately after the S or C symbol
+isAcceptState:
+	0 0 < isAcceptState
+	1 1 < isAcceptState
+	R R < isAcceptState
+	! ! < isAcceptState
+	b b < isAcceptState
+	S S < reject
+	A A < accept
+	< < < isAcceptState
+	> > < isAcceptState
+reject:
+accept: ACCEPT

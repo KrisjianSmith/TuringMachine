@@ -1,0 +1,179 @@
+Start:
+	0 0 < makeC
+	1 1 < makeC
+makeC:
+	_ C > makeDE
+makeDE:
+	0 0 > makeDE
+	1 1 > makeDE
+	x D > makeDE
+	_ E < makeB
+makeB:
+	0 0 < makeB
+	1 1 < makeB
+	D D < copyB
+copyB:
+	a a < copyB
+	b b < copyB
+	0 a < copyBZero
+	1 b < copyBOne
+	C C > removeMarkers
+copyBOne:
+	0 0 < copyBOne
+	1 1 < copyBOne
+	C C < copyBOne
+	_ 1 > findD
+copyBZero:
+	0 0 < copyBZero
+	1 1 < copyBZero
+	C C < copyBZero
+	_ 0 > findD
+findD:
+	0 0 > findD
+	1 1 > findD
+	a a > findD
+	b b > findD
+	C C > findD
+	D D < copyB
+removeMarkers:
+	a 0 > removeMarkers
+	b 1 > removeMarkers
+	D D < addB
+addB:
+	0 0 < addB
+	1 1 < addB
+	C C < addB
+	_ B < addZero
+addZero:
+	_ 0 < addA
+addA:
+	_ A > startMultiplication
+
+incrementA:
+	1 1 > incrementA
+	0 0 > incrementA
+	B B < incrementLoop
+incrementLoop:
+	0 1 < findStartOfA
+	1 0 < incrementLoop
+	A 1 < resizeA
+resizeA:
+	_ A > findStartOfA
+findStartOfA:
+	1 1 < findStartOfA
+	0 0 < findStartOfA
+	A A > decrementB
+
+decrementB:
+	0 0 > decrementB
+	1 1 > decrementB
+	B B > decrementB
+	C C < decrementLoop
+decrementLoop:
+	0 0 < decrementLoop
+	1 0 > postDecrementLoop
+	B B > decrementD
+postDecrementLoop:
+	0 1 > postDecrementLoop
+	C C < findAAndIncrement
+findAAndIncrement:
+	0 0 < findAAndIncrement
+	1 1 < findAAndIncrement
+	B B < findAAndIncrement
+	A A > incrementA
+
+decrementD:
+	0 0 > decrementD
+	1 1 > decrementD
+	B B > decrementD
+	C C > decrementD
+	D D > decrementD
+	E E < decrementLoopD
+decrementLoopD:
+	0 0 < decrementLoopD
+	1 0 > decrementLoopD2
+	D D > cleanUp
+decrementLoopD2:
+	0 1 > decrementLoopD2
+	E E < clearB1
+	
+clearB1:
+	0 0 < clearB1
+	1 1 < clearB1
+	D D < clearB1
+	C C < clearB2
+clearB2:
+	0 X < clearB2
+	1 X < clearB2
+	B B > copyCToB
+copyCToB:
+	X X > copyCToB
+	a a > copyCToB
+	b b > copyCToB
+	0 0 > copyCToB
+	1 1 > copyCToB
+	C C > copyDigitB
+copyDigitB:
+	a a > copyDigitB
+	b b > copyDigitB
+	0 a < copyZeroB
+	1 b < copyOneB
+	D D < removeMarkersCopyB
+copyZeroB:
+	a a < copyZeroB
+	b b < copyZeroB
+	C C < copyZeroB
+	X X < copyZeroB
+	1 1 > copyZeroB2
+	0 0 > copyZeroB2
+	B B > copyZeroB2
+copyZeroB2:
+	X 0 > copyCToB
+copyOneB:
+	a a < copyOneB
+	b b < copyOneB
+	C C < copyOneB
+	X X < copyOneB
+	1 1 > copyOneB2
+	0 0 > copyOneB2
+	B B > copyOneB2
+copyOneB2:
+	X 1 > copyCToB
+removeMarkersCopyB:
+	b 1 < removeMarkersCopyB
+	a 0 < removeMarkersCopyB
+	C C < decrementB
+	
+startMultiplication:
+	0 0 < startMultiplication
+	1 1 < startMultiplication
+	D D < startMultiplication
+	C C < startMultiplication
+	B B < startMultiplication
+	A A > decrementD
+
+cleanUp:
+	0 0 < cleanUp
+	1 1 < cleanUp
+	C C < cleanUp
+	B B < cleanUp
+	D D < cleanUp
+	A _ > cleanUp2
+cleanUp2:
+	0 0 > cleanUp2
+	1 1 > cleanUp2
+	B B > cleanUp2
+	C C > cleanUp2
+	D D > cleanUp2
+	E _ < cleanUp3
+cleanUp3:
+	0 _ < cleanUp3
+	1 _ < cleanUp3
+	C _ < cleanUp3
+	D _ < cleanUp3
+	B _ < findBeginning
+findBeginning:
+	0 0 < findBeginning
+	1 1 < findBeginning
+	_ _ > accept
+accept: ACCEPT

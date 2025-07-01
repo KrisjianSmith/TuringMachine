@@ -1,0 +1,200 @@
+Start:
+	0 0 < makeC
+	1 1 < makeC
+makeC:
+	_ C > makeDE
+makeDE:
+	0 0 > makeDE
+	1 1 > makeDE
+	x D > makeDE
+	_ E < makeB
+makeB:
+	0 0 < makeB
+	1 1 < makeB
+	D D < copyB
+copyB:
+	a a < copyB
+	b b < copyB
+	0 a < copyBX
+	1 b < copyBX
+	C C > removeMarkers
+copyBX:
+	0 0 < copyBX
+	1 1 < copyBX
+	X X < copyBX
+	C C < copyBX
+	_ X > findD
+findD:
+	0 0 > findD
+	1 1 > findD
+	a a > findD
+	b b > findD
+	C C > findD
+	X X > findD
+	D D < copyB
+removeMarkers:
+	a 0 > removeMarkers
+	b 1 > removeMarkers
+	D D < addB
+addB:
+	0 0 < addB
+	1 1 < addB
+	C C < addB
+	X X < addB
+	_ B < addZero
+addZero:
+	_ 0 < addA
+addA:
+	_ A > startMultiplication
+
+addAB:
+	0 X < markIgnore
+	1 X < addBit
+	B B < removeMarkersAdd
+markIgnore:
+	0 0 < markIgnore
+	1 1 < markIgnore
+	B B < markIgnore2
+markIgnore2:
+	a a < markIgnore2
+	b b < markIgnore2
+	0 a > nextBit
+	1 b > nextBit
+	A a < expandAMarkIgnore
+expandAMarkIgnore:
+	_ A > nextBit
+nextBit:
+	a a > nextBit
+	b b > nextBit
+	B B > nextBit2
+nextBit2:
+	0 0 > nextBit2
+	1 1 > nextBit2
+	X X < addAB
+addBit:
+	0 0 < addBit
+	1 1 < addBit
+	B B < addBit2
+addBit2:
+	a a < addBit2
+	b b < addBit2
+	0 b > nextBit
+	1 a < incrementAdd
+	A 1 < expandAAdd
+incrementAdd:
+	1 0 < incrementAdd
+	0 1 > findBAdd
+	A 1 < expandAAdd
+expandAAdd:
+	_ A > findBAdd
+findBAdd:
+	0 0 > findBAdd
+	1 1 > findBAdd
+	a a > nextBit
+	b b > nextBit
+	B B > nextBit
+removeMarkersAdd:
+	a 0 < removeMarkersAdd
+	b 1 < removeMarkersAdd
+	1 1 > decrementD
+	0 0 > decrementD
+	A A > decrementD
+
+
+decrementD:
+	0 0 > decrementD
+	X X > decrementD
+	1 1 > decrementD
+	B B > decrementD
+	C C > decrementD
+	D D > decrementD
+	E E < decrementLoopD
+decrementLoopD:
+	0 0 < decrementLoopD
+	1 0 > decrementLoopD2
+	D D > cleanUp
+decrementLoopD2:
+	0 1 > decrementLoopD2
+	E E < findB
+	
+findB:
+	0 0 < findB
+	1 1 < findB
+	D D < findB
+	C C < findB
+	X X < findB
+	B B > copyCToB
+copyCToB:
+	X X > copyCToB
+	a a > copyCToB
+	b b > copyCToB
+	0 0 > copyCToB
+	1 1 > copyCToB
+	C C > copyDigitB
+copyDigitB:
+	a a > copyDigitB
+	b b > copyDigitB
+	0 a < copyZeroB
+	1 b < copyOneB
+	D D < removeMarkersCopyB
+copyZeroB:
+	a a < copyZeroB
+	b b < copyZeroB
+	C C < copyZeroB
+	X X < copyZeroB
+	1 1 > copyZeroB2
+	0 0 > copyZeroB2
+	B B > copyZeroB2
+copyZeroB2:
+	X 0 > copyCToB
+copyOneB:
+	a a < copyOneB
+	b b < copyOneB
+	C C < copyOneB
+	X X < copyOneB
+	1 1 > copyOneB2
+	0 0 > copyOneB2
+	B B > copyOneB2
+copyOneB2:
+	X 1 > copyCToB
+removeMarkersCopyB:
+	b 1 < removeMarkersCopyB
+	a 0 < removeMarkersCopyB
+	C C < addAB
+	
+startMultiplication:
+	0 0 < startMultiplication
+	1 1 < startMultiplication
+	D D < startMultiplication
+	C C < startMultiplication
+	B B < startMultiplication
+	A A > decrementD
+
+cleanUp:
+	0 0 < cleanUp
+	1 1 < cleanUp
+	C C < cleanUp
+	B B < cleanUp
+	D D < cleanUp
+	X X < cleanUp
+	A _ > cleanUp2
+cleanUp2:
+	0 0 > cleanUp2
+	1 1 > cleanUp2
+	B B > cleanUp2
+	C C > cleanUp2
+	D D > cleanUp2
+	X X > cleanUp2
+	E _ < cleanUp3
+cleanUp3:
+	0 _ < cleanUp3
+	1 _ < cleanUp3
+	C _ < cleanUp3
+	D _ < cleanUp3
+	X _ < cleanUp3
+	B _ < findBeginning
+findBeginning:
+	0 0 < findBeginning
+	1 1 < findBeginning
+	_ _ > accept
+accept: ACCEPT
