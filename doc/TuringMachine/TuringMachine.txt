@@ -1,0 +1,38 @@
+A turing machine takes an input and manipulates it
+by moving the tape. It can read and write symbols on the tape.
+
+Functions:
+
+makeTuringMachine()
+	Returns a new, blank TuringMachine. This function is not
+	useful unless you want to manually set every state.
+	Use loadTuringMachineFromFile instead
+
+	returns - a pointer to a new, blank TuringMachine
+
+freeTuringMachine(TuringMachine* tm)
+	Frees a turing machine from memory
+
+	tm - the turing machine to free
+
+_Bool loadTuringMachineFromFile(TuringMachine* tm, char* fileName, char* errorMessage, int errorMessageSize)
+	Loads a Turing Machine from a file
+	
+	tm - a Turing Machine that any rules loaded from the given file will be added to.
+		Overwrites any existing rules
+	fileName - the name of the file to load
+	errorMessage - a buffer to save the error message to if the file fails to load. Must
+		be sufficiently long to store an error message, or nothing will be stored in it.
+	errorMessageSize - the length of the errorMessage buffer
+
+	return - true if the Turing Machine was loaded successfully, or false otherwise.
+
+void ExecuteInput(TuringMachine* tm, char* input, _Bool verbose, _Bool step, _Bool clear)
+	Executes the given input on the given turing machine
+
+	tm - the turing machine to use
+	input - the input to put on the tape
+	verbose - whether or not you want the Turing Machine to output every step
+	step - if true, the Turing Machine will pause and wait for you to press enter before
+		executing the next rule. Ignored if verbose is set to false.
+	clear - if true, the output will be cleared after each step

@@ -1,0 +1,74 @@
+A RuleTree holds all the rules of the turing machine (IE state transitions).
+You can add rules and states to a RuleTree, but they cannot be removed.
+
+Rule:
+	A rule is a simple data structure that holds four pieces of data:
+
+	readSymbol - the symbol that must be on the tape for this rule to be executed
+	writeSymbol - the symbol that this rule writes on the tape
+	moveDir - the direction the tape head moves after writing the writeSymbol. Must be '<' for left or '>' for right
+	stateToMoveTo - an integer representing the ID of the next state to move to
+
+Functions:
+
+makeRuleTree()
+	Makes a new RuleTree with no rules or states.
+
+	returns - a new, blank RuleTree
+
+freeRuleTree()
+	Frees a RuleTree and any data stored inside it
+
+addNewState(RuleTree* tree, char* name, _Bool accept)
+	Adds a new state to the given RuleTree. The name must be unique and less than 200 characters.
+
+	tree - tree to add the new state to
+	name - the name of the state. Must be unique and less than 200 characters.
+	accept - true if this state should be an accept state
+
+	returns - true if the state was added or false otherwise. A state may not be added
+		if it does not have a unique name.
+	
+addNewRule(RuleTree* tree, char* stateName, char readSymbol, char writeSymbol, char moveDir, char* stateToMoveTo, char* errorBuffer, int errorBufferSize)
+	Adds a new rule to the given state in the given RuleTree
+
+	tree - the tree to add the state to
+	stateName - the name of the state to add the rule to
+	readSymbol - the symbol that must be on the tape for the rule to be executed
+	writeSymbol - the symbol that the new rule will write on the tape
+	moveDir - the direction to move the tape head in. Must be '<' or '>'
+	stateToMoveTo - the name of the state to move to after the given rule has executed
+	errorBuffer - a buffer of characters to store any error messages in
+	errorBufferSize - the size of the error buffer
+	
+	returns - true if the state was successfully added. False if no state with the given StateName exists or
+		if the state already has a rule with the given readSymbol.
+
+Rule* getRule(RuleTree* tree, int stateId, char symbol)
+	Gets the rule from the given tree corresponding to the state and symbol provided.
+	If null is returned, then the given rule does not exist and the machine should halt.
+
+	tree - the tree to get the rule from
+	stateId - the id number of the state to get the rule from. This is the index of the
+		internal array of the state.
+	symbol - the symbol on the tape. This will be the rules readSymbol
+
+	returns - the rule in the tree that corresponds to the given stateId and symbol,
+		or null if no such rule exists.
+
+_Bool isAcceptState(RuleTree* tree, int stateId)
+	Determines if the index with the given stateId is an accept state.
+	If no such state exists, false is returned
+
+	tree - the tree to check for the rule in
+	stateId - the index of the given state in the tree
+
+	return - true if the state with the given stateId is an accept state
+
+void ruleTreeToString(RuleTree* tree, char* buffer, int bufferSize)
+	Saves a string representation of the rule tree to the given buffer of characters.
+	Keeps copying rules/states until bufferSize is reached
+
+	tree - the tree to save as a string
+	buffer - the buffer of characters to save to
+	bufferSize - the size of the given buffer of characters
