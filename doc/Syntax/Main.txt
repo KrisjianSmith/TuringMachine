@@ -3,7 +3,7 @@ This document specifies how to use the TuringMachine program itself.
 You must specify in input file (preceded by a -I flag)
 You can have the command switches v, s, c, and o.
 v - Verbose - every step through the input is displayed
-s - Setp - the Turing machine pauses at each step
+s - Step - the Turing machine pauses at each step
 c - Clear - The screen is cleared after every step
 o - Output - the currently loaded file is output in the syntax used by the online turing machine simulator
 
